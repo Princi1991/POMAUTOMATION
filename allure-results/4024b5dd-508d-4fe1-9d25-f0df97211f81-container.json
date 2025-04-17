@@ -1,0 +1,1 @@
+{"uuid":"4024b5dd-508d-4fe1-9d25-f0df97211f81","name":"com.qa.hubspot.tests.HomePageTest","children":["266d4053-c8d8-4e77-ba44-810ebb9ecea4"],"befores":[{"name":"homeSetup","status":"broken","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1744883450565,"stop":1744883450565}],"afters":[],"links":[],"start":1744883431775,"stop":1744883450718}
