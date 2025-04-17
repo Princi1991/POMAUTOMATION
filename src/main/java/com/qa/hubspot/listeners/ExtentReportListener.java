@@ -15,8 +15,9 @@ import org.testng.ITestResult;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.configuration.ChartLocation;
+//import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+//import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.qa.hubspot.base.BasePage;
 
@@ -40,10 +41,10 @@ public class ExtentReportListener extends BasePage implements ITestListener {
 				e.printStackTrace();
 			}
 		}
-		ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(OUTPUT_FOLDER + FILE_NAME);
+		ExtentSparkReporter htmlReporter = new ExtentSparkReporter(OUTPUT_FOLDER + FILE_NAME);
 		htmlReporter.config().setDocumentTitle("Automation Test Results");
 		htmlReporter.config().setReportName("Automation Test Results");
-		htmlReporter.config().setTestViewChartLocation(ChartLocation.TOP);
+//		htmlReporter.config().setTestViewChartLocation(ChartLocation.TOP);
 		htmlReporter.config().setTheme(Theme.STANDARD);
 
 		extent = new ExtentReports();
@@ -92,25 +93,15 @@ public class ExtentReportListener extends BasePage implements ITestListener {
 
 	public synchronized void onTestFailure(ITestResult result) {
 		System.out.println((result.getMethod().getMethodName() + " failed!"));
-		try {
-			test.get().fail(result.getThrowable(),
-					MediaEntityBuilder.createScreenCaptureFromPath(getScreenshot()).build());
-		} catch (IOException e) {
-			System.err
-					.println("Exception thrown while updating test fail status " + Arrays.toString(e.getStackTrace()));
-		}
+		test.get().fail(result.getThrowable(),
+				MediaEntityBuilder.createScreenCaptureFromPath(getScreenshot()).build());
 		test.get().getModel().setEndTime(getTime(result.getEndMillis()));
 	}
 
 	public synchronized void onTestSkipped(ITestResult result) {
 		System.out.println((result.getMethod().getMethodName() + " skipped!"));
-		try {
-			test.get().skip(result.getThrowable(),
-					MediaEntityBuilder.createScreenCaptureFromPath(getScreenshot()).build());
-		} catch (IOException e) {
-			System.err
-					.println("Exception thrown while updating test skip status " + Arrays.toString(e.getStackTrace()));
-		}
+		test.get().skip(result.getThrowable(),
+				MediaEntityBuilder.createScreenCaptureFromPath(getScreenshot()).build());
 		test.get().getModel().setEndTime(getTime(result.getEndMillis()));
 	}
 
